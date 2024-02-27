@@ -5,13 +5,13 @@ import displayLandingPage from "./landingPage.js";
  * Fonction principale appelée au chargement de la page
  */
 window.addEventListener("load", async () => {
-  const requested_page = new URL(document.location.href).hash
-  const applicationSection = document.querySelector('.application');
+  const requested_page = new URL(document.location.href).hash;
+  const applicationSection = document.querySelector(".application");
 
   //-------------Fetch API----------------------
   /**
- * Paramètres de l'API TMDB
- */
+   * Paramètres de l'API TMDB
+   */
   const baseUrl = "https://api.themoviedb.org/3"; // URL de base de l'API TMDB
   const language = "fr-FR";
   const page = 1;
@@ -21,12 +21,12 @@ window.addEventListener("load", async () => {
    */
   const fetchApiKey = async () => {
     try {
-      const credentialsUrl = 'credentials.json';
+      const credentialsUrl = "credentials.json";
       const response = await fetch(credentialsUrl);
       const credentials = await response.json();
       return credentials.apiKey;
     } catch (error) {
-      console.error('Erreur de récupération de la clé API:', error);
+      console.error("Erreur de récupération de la clé API:", error);
       return null;
     }
   };
@@ -42,42 +42,44 @@ window.addEventListener("load", async () => {
   const apiKey = await fetchApiKey();
   if (!apiKey) return;
 
-
-
   // ---------------------Listeners Nav----------------------
-  const landingPageBtn = document.querySelector('.landing');
-  const moviesPageBtn = document.querySelector('.movies');
-  const contactPageBtn = document.querySelector('.contact');
+  const landingPageBtn = document.querySelector(".landing");
+  const moviesPageBtn = document.querySelector(".movies");
+  const contactPageBtn = document.querySelector(".contact");
   /**
    * Listen for click event on the landing page button
    */
   landingPageBtn.addEventListener("click", () => {
     displayLandingPage(applicationSection);
-
   });
   moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
   });
   contactPageBtn.addEventListener("click", () => {
     displayContactPage(applicationSection);
-  })
+  });
 
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
     /**
-    * Fonction pour trier les films par date de sortie
-    */
-    const sortFilmsByReleaseDate = films => [ ...films ].sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+     * Fonction pour trier les films par date de sortie
+     */
+    const sortFilmsByReleaseDate = (films) =>
+      [...films].sort(
+        (a, b) => new Date(a.release_date) - new Date(b.release_date)
+      );
     /**
-    * Fonction pour créer une carte de film
-    */
-    const createFilmCard = film => {
+     * Fonction pour créer une carte de film
+     */
+    const createFilmCard = (film) => {
       const { id, title, poster_path, release_date } = film;
       const releaseDate = new Date(release_date);
-      const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1}/${releaseDate.getFullYear()}`;
+      const formattedReleaseDate = `${releaseDate.getDate()}/${
+        releaseDate.getMonth() + 1
+      }/${releaseDate.getFullYear()}`;
 
-      const filmCard = document.createElement('div');
-      filmCard.classList.add('film-card');
+      const filmCard = document.createElement("div");
+      filmCard.classList.add("film-card");
       filmCard.dataset.filmId = id;
 
       const filmCardContent = `
@@ -91,16 +93,16 @@ window.addEventListener("load", async () => {
     };
 
     /**
-    * Fonction pour afficher les cartes de films
-    */
-    const renderFilmCards = films => {
+     * Fonction pour afficher les cartes de films
+     */
+    const renderFilmCards = (films) => {
       //const applicationSection = document.querySelector('.application');
       applicationSection.id = "movies";
-      applicationSection.classList.add('film-grid');
-      applicationSection.innerHTML = '';
-      films.forEach(film => {
+      applicationSection.classList.add("film-grid");
+      applicationSection.innerHTML = "";
+      films.forEach((film) => {
         const filmCard = createFilmCard(film);
-        filmCard.addEventListener('click', () => {
+        filmCard.addEventListener("click", () => {
           navigateToFilmDetailsPage(film.id);
         });
         applicationSection.appendChild(filmCard);
@@ -120,12 +122,15 @@ window.addEventListener("load", async () => {
         const sortedFilms = sortFilmsByReleaseDate(films);
         renderFilmCards(sortedFilms);
       } else {
-        console.error("Erreur lors de la récupération des données :", data.status_message);
+        console.error(
+          "Erreur lors de la récupération des données :",
+          data.status_message
+        );
       }
     } catch (error) {
       console.error("Erreur :", error);
     }
-  }
+  };
 
   /**
    * Fonction pour naviguer vers la page de détails du film
@@ -135,7 +140,10 @@ window.addEventListener("load", async () => {
       const filmDetails = await findMovie(filmId);
       renderFilmDetails(filmDetails);
     } catch (error) {
-      console.error("Erreur lors de la récupération des détails du film :", error);
+      console.error(
+        "Erreur lors de la récupération des détails du film :",
+        error
+      );
     }
   };
   /**
@@ -154,18 +162,24 @@ window.addEventListener("load", async () => {
       }
       return await response.json();
     } catch (error) {
-      console.error("Erreur lors de la récupération des détails du film :", error);
+      console.error(
+        "Erreur lors de la récupération des détails du film :",
+        error
+      );
       return null;
     }
   };
   /**
-  * Fonction pour afficher les détails d'un film
-  */
+   * Fonction pour afficher les détails d'un film
+   */
   const renderFilmDetails = (filmDetails) => {
-    const { title, poster_path, release_date, overview, runtime, genres } = filmDetails;
+    const { title, poster_path, release_date, overview, runtime, genres } =
+      filmDetails;
 
     const releaseDate = new Date(release_date);
-    const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1}/${releaseDate.getFullYear()}`;
+    const formattedReleaseDate = `${releaseDate.getDate()}/${
+      releaseDate.getMonth() + 1
+    }/${releaseDate.getFullYear()}`;
 
     const filmDetailsHTML = `
     <div class="film-details">
@@ -175,61 +189,62 @@ window.addEventListener("load", async () => {
         <p class="release-date">Date de sortie : ${formattedReleaseDate}</p>
         <p class="overview">${overview}</p>
         <p class="runtime">Durée : ${runtime} minutes</p>
-        <p class="genres">Genres : ${genres.map(genre => genre.name).join(', ')}</p>
+        <p class="genres">Genres : ${genres
+          .map((genre) => genre.name)
+          .join(", ")}</p>
       </div>
     </div>
   `;
 
-    const filmDetailsContainer = document.createElement('div');
+    const filmDetailsContainer = document.createElement("div");
     filmDetailsContainer.innerHTML = filmDetailsHTML;
     applicationSection.id = "filmDetail";
-    applicationSection.innerHTML = '';
+    applicationSection.innerHTML = "";
     applicationSection.appendChild(filmDetailsContainer);
   };
 
- // je récupère mon élément Formulaire par son ID.
- let formulaire = document.getElementById('formulaire');
- // j'ajoute une écouteur d'evenement à la soumission du formulaire.
- formulaire.addEventListener('submit', (e)=> {
-     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target))
+  // je récupère mon élément Formulaire par son ID.
+  let formulaire = document.getElementById("formulaire");
+  // j'ajoute une écouteur d'evenement à la soumission du formulaire.
+  formulaire.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target));
     //j'autorise les lettres + (-) + (espace)
     let myRegex = /^[a-zA-Z-\s]$/;
-    console.log(data.username)
+    console.log(data.username);
     if (!data.username) {
-        let errorUser = document.getElementById('error_user');
-        errorUser.innerHTML = "Veuillez saisir votre prénom";
-        errorUser.style.color = 'red';
+      let errorUser = document.getElementById("error_user");
+      errorUser.innerHTML = "Veuillez saisir votre prénom";
+      errorUser.style.color = "red";
+    } else if (myRegex.test(data.username) == false) {
+      let errorUser = document.getElementById("error_user");
+      errorUser.innerHTML = "Veuilez saisir un prénom valide";
+      errorUser.style.color = "red";
     }
-    else if (myRegex.test(data.username) == false) {
-        let errorUser = document.getElementById('error_user');
-        errorUser.innerHTML = "Veuilez saisir un prénom valide";
-        errorUser.style.color = 'red';
-    }
- })
- formulaire.addEventListener('submit', (e) => {
+  });
+  formulaire.addEventListener("submit", (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target))
-    console.log(data.email)
+    const data = Object.fromEntries(new FormData(e.target));
+    console.log(data.email);
     if (!data.email) {
-        let errorEmail = document.getElementById('error_email')
-        errorEmail.innerHTML = "Veuillez saisir votre email";
-        errorEmail.style.color = 'red';
+      let errorEmail = document.getElementById("error_email");
+      errorEmail.innerHTML = "Veuillez saisir votre email";
+      errorEmail.style.color = "red";
     }
- })
+  });
 
   // Check the root and keep it when reload
-  if (requested_page == '#contact') {
+  if (requested_page == "#contact") {
     displayContactPage(applicationSection);
-  } else if (requested_page == '#films') {
+  } else if (requested_page == "#films") {
     displayMoviesPage();
   } else {
     displayLandingPage(applicationSection);
   }
 
-// -------------------Footer------------------------------
+  // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
-  document.querySelector('.footer').innerHTML = `
+  document.querySelector(".footer").innerHTML = `
   
       <div class="reseau">
           <i class="fa-brands fa-instagram"></i>
