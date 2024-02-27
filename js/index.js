@@ -1,7 +1,9 @@
+
 /**
  * Fonction principale appelée au chargement de la page
  */
 window.addEventListener("load", async () => {
+  const applicationSection = document.querySelector('.application');
   //-------------Fetch ----------------------
   /**
  * Paramètres de l'API TMDB
@@ -34,24 +36,51 @@ window.addEventListener("load", async () => {
   // Récupération de apiKey
   const apiKey = await fetchApiKey();
   if (!apiKey) return;
+
+  // ---------------------Listeners Nav----------------------
+  const landingPageBtn = document.querySelector('.landing');
+  const moviesPageBtn = document.querySelector('.movies');
+  const contactPageBtn = document.querySelector('.contact');
+  /**
+   * Listen for click event on the landing page button
+   */
+  landingPageBtn.addEventListener("click", () => {
+    displayLandingPage();
+  }); 
+  moviesPageBtn.addEventListener("click",() => {
+    displayMoviesPage();
+  });
+  contactPageBtn.addEventListener("click", () => {
+    displayContactPage();
+  })
+  
+  //----------------------Landing Page ---------------------
+  const displayLandingPage = async () => {
+    console.log('landing');
+
+    applicationSection.id = "landing";
+  }
+
+displayLandingPage();
   //---------------------Tous les films----------------------
-  /**
-  * Fonction pour trier les films par date de sortie
-  */
-  const sortFilmsByReleaseDate = films => [ ...films ].sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
-  /**
-  * Fonction pour créer une carte de film
-  */
-  const createFilmCard = film => {
-    const { id, title, poster_path, release_date } = film;
-    const releaseDate = new Date(release_date);
-    const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1}/${releaseDate.getFullYear()}`;
+  const displayMoviesPage = async () => {
+    /**
+    * Fonction pour trier les films par date de sortie
+    */
+    const sortFilmsByReleaseDate = films => [ ...films ].sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+    /**
+    * Fonction pour créer une carte de film
+    */
+    const createFilmCard = film => {
+      const { id, title, poster_path, release_date } = film;
+      const releaseDate = new Date(release_date);
+      const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1}/${releaseDate.getFullYear()}`;
 
-    const filmCard = document.createElement('div');
-    filmCard.classList.add('film-card');
-    filmCard.dataset.filmId = id;
+      const filmCard = document.createElement('div');
+      filmCard.classList.add('film-card');
+      filmCard.dataset.filmId = id;
 
-    const filmCardContent = `
+      const filmCardContent = `
   <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" class="film-poster">
   <div class="film-info">
     <h2 class="film-title">${title}</h2>
@@ -59,44 +88,47 @@ window.addEventListener("load", async () => {
   </div>
 `;
 
-    filmCard.innerHTML = filmCardContent;
-    return filmCard;
-  };
+      filmCard.innerHTML = filmCardContent;
+      return filmCard;
+    };
 
-  /**
-  * Fonction pour afficher les cartes de films
-  */
-  const renderFilmCards = films => {
-    const applicationSection = document.querySelector('.application');
-    applicationSection.id = "landing";
-    films.forEach(film => {
-      const filmCard = createFilmCard(film);
-      filmCard.addEventListener('click', () => {
-        navigateToFilmDetailsPage(film.id);
+    /**
+    * Fonction pour afficher les cartes de films
+    */
+    const renderFilmCards = films => {
+      //const applicationSection = document.querySelector('.application');
+      applicationSection.id = "landing";
+      films.forEach(film => {
+        const filmCard = createFilmCard(film);
+        filmCard.addEventListener('click', () => {
+          navigateToFilmDetailsPage(film.id);
+        });
+        applicationSection.classList.add('movies');
+        applicationSection.id = "movies"
+        applicationSection.appendChild(filmCard);
       });
-      applicationSection.classList.add('accueil');
-      applicationSection.appendChild(filmCard);
-    });
-  };
+    };
 
-  /**
-   * Recheche des films
-   */
-  const apiUrl = upcomingMoviesUrl(apiKey);
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
+    /**
+     * Recheche des films
+     */
+    const apiUrl = upcomingMoviesUrl(apiKey);
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
 
-    if (response.ok) {
-      const films = data.results;
-      const sortedFilms = sortFilmsByReleaseDate(films);
-      renderFilmCards(sortedFilms);
-    } else {
-      console.error("Erreur lors de la récupération des données :", data.status_message);
+      if (response.ok) {
+        const films = data.results;
+        const sortedFilms = sortFilmsByReleaseDate(films);
+        renderFilmCards(sortedFilms);
+      } else {
+        console.error("Erreur lors de la récupération des données :", data.status_message);
+      }
+    } catch (error) {
+      console.error("Erreur :", error);
     }
-  } catch (error) {
-    console.error("Erreur :", error);
   }
+
 
   /**
    * Fonction pour naviguer vers la page de détails du film
@@ -157,18 +189,18 @@ window.addEventListener("load", async () => {
     filmDetailsContainer.innerHTML = filmDetailsHTML;
 
     const applicationSection = document.querySelector('.application');
-    applicationSection.id = "films";
+    applicationSection.id = "filmDetail";
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
   // -------------------Contact ---------------------
-    const displayContactPage = () =>{
-      applicationSection.id = "contact";
-      applicationSection.innerHTML = `
-      
+  const displayContactPage = () => {
+    applicationSection.id = "contact";
+    applicationSection.innerHTML = `
+      contact
       `;
-      
-    }
+
+  }
 
   // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
