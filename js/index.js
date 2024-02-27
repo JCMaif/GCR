@@ -137,7 +137,7 @@ window.addEventListener("load", async () => {
    */
   const navigateToFilmDetailsPage = async (filmId) => {
     try {
-      const filmDetails = await fetchFilmDetails(filmId);
+      const filmDetails = await findMovie(filmId);
       renderFilmDetails(filmDetails);
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du film :", error);
@@ -146,7 +146,7 @@ window.addEventListener("load", async () => {
   /**
    * Fonction pour récupérer les détails d'un film
    */
-  const fetchFilmDetails = async (filmId) => {
+  const findMovie = async (filmId) => {
     const apiKey = await fetchApiKey();
     if (!apiKey) return;
 
