@@ -2,8 +2,10 @@
  * Fonction principale appelée au chargement de la page
  */
 window.addEventListener("load", async () => {
+  const requested_page = new URL(document.location.href).hash
   const applicationSection = document.querySelector('.application');
-  //-------------Fetch ----------------------
+
+  //-------------Fetch API----------------------
   /**
  * Paramètres de l'API TMDB
  */
@@ -32,9 +34,12 @@ window.addEventListener("load", async () => {
   const upcomingMoviesUrl = (apiKey) => {
     return `${baseUrl}/movie/upcoming?api_key=${apiKey}&language=${language}&page=${page}`;
   };
+
   // Récupération de apiKey
   const apiKey = await fetchApiKey();
   if (!apiKey) return;
+
+
 
   // ---------------------Listeners Nav----------------------
   const landingPageBtn = document.querySelector('.landing');
@@ -45,14 +50,14 @@ window.addEventListener("load", async () => {
    */
   landingPageBtn.addEventListener("click", () => {
     displayLandingPage();
-  }); 
-  moviesPageBtn.addEventListener("click",() => {
+  });
+  moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
   });
   contactPageBtn.addEventListener("click", () => {
     displayContactPage();
   })
-  
+
   //----------------------Landing Page ---------------------
   const displayLandingPage = async () => {
     console.log('landing');
@@ -60,7 +65,7 @@ window.addEventListener("load", async () => {
     applicationSection.id = "landing";
   }
 
-displayLandingPage();
+
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
     /**
@@ -86,7 +91,6 @@ displayLandingPage();
     <p class="release-date">Date de sortie : ${formattedReleaseDate}</p>
   </div>
 `;
-
       filmCard.innerHTML = filmCardContent;
       return filmCard;
     };
@@ -96,18 +100,18 @@ displayLandingPage();
     */
     const renderFilmCards = films => {
       //const applicationSection = document.querySelector('.application');
-      applicationSection.id = "landing";
+      applicationSection.id = "movies";
+      applicationSection.classList.add('movies');
+      applicationSection.innerHTML = '';
       films.forEach(film => {
         const filmCard = createFilmCard(film);
         filmCard.addEventListener('click', () => {
           navigateToFilmDetailsPage(film.id);
         });
-        applicationSection.classList.add('movies');
-        applicationSection.id = "movies"
         applicationSection.appendChild(filmCard);
       });
     };
-
+    //----------------
     /**
      * Recheche des films
      */
@@ -128,7 +132,6 @@ displayLandingPage();
     }
   }
 
-
   /**
    * Fonction pour naviguer vers la page de détails du film
    */
@@ -140,7 +143,6 @@ displayLandingPage();
       console.error("Erreur lors de la récupération des détails du film :", error);
     }
   };
-
   /**
    * Fonction pour récupérer les détails d'un film
    */
@@ -161,7 +163,6 @@ displayLandingPage();
       return null;
     }
   };
-
   /**
    * Fonction pour afficher les détails d'un film
    */
@@ -186,14 +187,13 @@ displayLandingPage();
 
     const filmDetailsContainer = document.createElement('div');
     filmDetailsContainer.innerHTML = filmDetailsHTML;
-
-    const applicationSection = document.querySelector('.application');
     applicationSection.id = "filmDetail";
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
   // -------------------Contact ---------------------
   const displayContactPage = () => {
+
     applicationSection.id = "contact";
     applicationSection.innerHTML = `
     <form action="">
@@ -208,7 +208,7 @@ displayLandingPage();
                     </div>
                     <div class="groupe">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="text" placeholder="Votre addresse e-mail">
+                        <input type="email" placeholder="Votre addresse e-mail">
                     <div class="groupe">
                         <i class="fa-solid fa-phone-volume"></i>
                         <input type="text" placeholder="Votre numéro de téléphone">
@@ -226,11 +226,17 @@ displayLandingPage();
         </div>
     </form>`;
   }
-
+  if (requested_page == '#contact') {
+    displayContactPage();
+  } else if (requested_page == '#films') {
+    displayMoviesPage();
+  } else {
+    displayLandingPage();
+  }
   // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
-  document.querySelector('.footer').innerHTML += `
-  <section class="footer">
+  document.querySelector('.footer').innerHTML = `
+  
       <div class="reseau">
           <i class="fa-brands fa-instagram"></i>
           <i class="fa-brands fa-facebook"></i>
@@ -239,5 +245,5 @@ displayLandingPage();
       </div>
       <div id="site-by">
       </div>
-  </section>`;
+ `;
 });
