@@ -1,4 +1,3 @@
-
 /**
  * Fonction principale appelée au chargement de la page
  */
