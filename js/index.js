@@ -2,6 +2,7 @@
  * Fonction principale appelée au chargement de la page
  */
 window.addEventListener("load", async () => {
+  const requested_page = new URL(document.location.href).hash
   const applicationSection = document.querySelector('.application');
   //-------------Fetch ----------------------
   /**
@@ -60,7 +61,6 @@ window.addEventListener("load", async () => {
     applicationSection.id = "landing";
   }
 
-displayLandingPage();
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
     /**
@@ -163,8 +163,8 @@ displayLandingPage();
   };
 
   /**
-   * Fonction pour afficher les détails d'un film
-   */
+  * Fonction pour afficher les détails d'un film
+  */
   const renderFilmDetails = (filmDetails) => {
     const { title, poster_path, release_date, overview, runtime, genres } = filmDetails;
 
@@ -192,43 +192,89 @@ displayLandingPage();
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
-  // -------------------Contact ---------------------
+// -------------------Contact ---------------------
   const displayContactPage = () => {
+    applicationSection.innerHTML = '';
     applicationSection.id = "contact";
     applicationSection.innerHTML = `
-    <form action="">
-        <div class="formulaire">
-            <h1>Contactez-nous</h1>
-            <div class="separation"></div>
-            <div class="corps-formulaire">
-                <div class="gauche">
-                    <div class="groupe">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="Votre prénom">
-                    </div>
-                    <div class="groupe">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="text" placeholder="Votre addresse e-mail">
-                    <div class="groupe">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <input type="text" placeholder="Votre numéro de téléphone">
-                </div>
-                <div class="droite">
-                    <div class="groupe">
-                        <label for="">Message</label>
-                        <textarea placeholder="Ecrivez votre messages..."></textarea>
-                    </div>
-                </div>
+<form id="formulaire">
+    <div class="formulaire">
+    <h1>Contactez-nous</h1>
+    <div class="separation"></div>
+    <div class="corps-formulaire">
+        <div class="gauche">
+            <div class="groupe">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="userName" name="username" placeholder="Votre prénom">
+                <span id="error_user"></span>
             </div>
-            <div class="pied-formulaire" align="center">
-                <button>Envoyer le message</button>
+            <div class="groupe">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Votre addresse e-mail">
+                <span id="error_email"></span>
+            </div>
+            <div class="groupe">
+                <i class="fa-solid fa-phone-volume"></i>
+                <input type="text" id="telephone" name="telephone" placeholder="Votre numéro de téléphone">
+                <span id="error_telephone"></span>
             </div>
         </div>
-    </form>`;
-  }
+        <div class="droite">
+            <div class="groupe">
+                <label for="">Message</label>
+                <textarea placeholder="Ecrivez votre messages..."></textarea>
+            </div>  
+        </div>
+        <div class="pied-formulaire" align="center">
+        <button type="submit">Envoyer le message</button>
+        </div>
+    </div>
+ </form>`;
+ }
 
-  // -------------------Footer------------------------------
-  // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
+ if(requested_page == '#contact'){
+   displayContactPage();
+ }else if(requested_page == '#films') {
+   displayMoviesPage();
+ } else {
+   displayLandingPage();
+ }
+
+ // je récupère mon élément Formulaire par son ID.
+ let formulaire = document.getElementById('formulaire');
+ // j'ajoute une écouteur d'evenement à la soumission du formulaire.
+ formulaire.addEventListener('submit', (e)=> {
+     e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target))
+    //j'autorise les lettres + (-) + (espace)
+    let myRegex = /^[a-zA-Z-\s]$/;
+    console.log(data.username)
+    if (!data.username) {
+        let errorUser = document.getElementById('error_user');
+        errorUser.innerHTML = "Veuillez saisir votre prénom";
+        errorUser.style.color = 'red';
+    }
+    else if (myRegex.test(data.username) == false) {
+        let errorUser = document.getElementById('error_user');
+        errorUser.innerHTML = "Veuilez saisir un prénom valide";
+        errorUser.style.color = 'red';
+    }
+ })
+ formulaire.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target))
+    console.log(data.email)
+    if (!data.email) {
+        let errorEmail = document.getElementById('error_email')
+        errorEmail.innerHTML = "Veuillez saisir votre email";
+        errorEmail.style.color = 'red';
+    }
+ })
+
+
+ // -------------------Footer------------------------------
+
+ // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
   document.querySelector('.footer').innerHTML += `
   <section class="footer">
       <div class="reseau">
