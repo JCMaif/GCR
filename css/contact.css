@@ -1,0 +1,31 @@
+form{
+    background-color: rgb(164, 164, 164);
+    display: flex;
+    justify-content: center;
+}
+
+.formulaire{
+    background-color: aqua;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.formulaire h1{
+    font-size: 20px;
+}
+.formulaire .separation{
+    width: 100%;
+    height: 1px;
+    background-color: black;
+}
+
+.corps-formulaire{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+form .corps-formulaire .groupes{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
