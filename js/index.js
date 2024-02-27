@@ -193,8 +193,7 @@ window.addEventListener("load", async () => {
           .map((genre) => genre.name)
           .join(", ")}</p>
       </div>
-    </div>
-  `;
+    </div>`;
 
     const filmDetailsContainer = document.createElement("div");
     filmDetailsContainer.innerHTML = filmDetailsHTML;
