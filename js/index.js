@@ -4,7 +4,8 @@
 window.addEventListener("load", async () => {
   const requested_page = new URL(document.location.href).hash
   const applicationSection = document.querySelector('.application');
-  //-------------Fetch ----------------------
+
+  //-------------Fetch API----------------------
   /**
  * Paramètres de l'API TMDB
  */
@@ -33,9 +34,12 @@ window.addEventListener("load", async () => {
   const upcomingMoviesUrl = (apiKey) => {
     return `${baseUrl}/movie/upcoming?api_key=${apiKey}&language=${language}&page=${page}`;
   };
+
   // Récupération de apiKey
   const apiKey = await fetchApiKey();
   if (!apiKey) return;
+
+
 
   // ---------------------Listeners Nav----------------------
   const landingPageBtn = document.querySelector('.landing');
@@ -46,14 +50,14 @@ window.addEventListener("load", async () => {
    */
   landingPageBtn.addEventListener("click", () => {
     displayLandingPage();
-  }); 
-  moviesPageBtn.addEventListener("click",() => {
+  });
+  moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
   });
   contactPageBtn.addEventListener("click", () => {
     displayContactPage();
   })
-  
+
   //----------------------Landing Page ---------------------
   const displayLandingPage = async () => {
     console.log('landing');
@@ -86,7 +90,6 @@ window.addEventListener("load", async () => {
     <p class="release-date">Date de sortie : ${formattedReleaseDate}</p>
   </div>
 `;
-
       filmCard.innerHTML = filmCardContent;
       return filmCard;
     };
@@ -96,18 +99,18 @@ window.addEventListener("load", async () => {
     */
     const renderFilmCards = films => {
       //const applicationSection = document.querySelector('.application');
-      applicationSection.id = "landing";
+      applicationSection.id = "movies";
+      applicationSection.classList.add('movies');
+      applicationSection.innerHTML = '';
       films.forEach(film => {
         const filmCard = createFilmCard(film);
         filmCard.addEventListener('click', () => {
           navigateToFilmDetailsPage(film.id);
         });
-        applicationSection.classList.add('movies');
-        applicationSection.id = "movies"
         applicationSection.appendChild(filmCard);
       });
     };
-
+    //----------------
     /**
      * Recheche des films
      */
@@ -128,23 +131,21 @@ window.addEventListener("load", async () => {
     }
   }
 
-
   /**
    * Fonction pour naviguer vers la page de détails du film
    */
   const navigateToFilmDetailsPage = async (filmId) => {
     try {
-      const filmDetails = await fetchFilmDetails(filmId);
+      const filmDetails = await findMovie(filmId);
       renderFilmDetails(filmDetails);
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du film :", error);
     }
   };
-
   /**
    * Fonction pour récupérer les détails d'un film
    */
-  const fetchFilmDetails = async (filmId) => {
+  const findMovie = async (filmId) => {
     const apiKey = await fetchApiKey();
     if (!apiKey) return;
 
@@ -161,7 +162,6 @@ window.addEventListener("load", async () => {
       return null;
     }
   };
-
   /**
   * Fonction pour afficher les détails d'un film
   */
@@ -186,43 +186,37 @@ window.addEventListener("load", async () => {
 
     const filmDetailsContainer = document.createElement('div');
     filmDetailsContainer.innerHTML = filmDetailsHTML;
-
-    const applicationSection = document.querySelector('.application');
     applicationSection.id = "filmDetail";
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
 // -------------------Contact ---------------------
   const displayContactPage = () => {
-    applicationSection.innerHTML = '';
     applicationSection.id = "contact";
     applicationSection.innerHTML = `
-<form id="formulaire">
-    <div class="formulaire">
-    <h1>Contactez-nous</h1>
-    <div class="separation"></div>
-    <div class="corps-formulaire">
-        <div class="gauche">
-            <div class="groupe">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="userName" name="username" placeholder="Votre prénom">
-                <span id="error_user"></span>
-            </div>
-            <div class="groupe">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="Votre addresse e-mail">
-                <span id="error_email"></span>
-            </div>
-            <div class="groupe">
-                <i class="fa-solid fa-phone-volume"></i>
-                <input type="text" id="telephone" name="telephone" placeholder="Votre numéro de téléphone">
-                <span id="error_telephone"></span>
-            </div>
-        </div>
-        <div class="droite">
-            <div class="groupe">
-                <label for="">Message</label>
-                <textarea placeholder="Ecrivez votre messages..."></textarea>
+    <form action="">
+        <div class="formulaire">
+            <h1>Contactez-nous</h1>
+            <div class="separation"></div>
+            <div class="corps-formulaire">
+                <div class="gauche">
+                    <div class="groupe">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Votre prénom">
+                    </div>
+                    <div class="groupe">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="Votre addresse e-mail">
+                    <div class="groupe">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <input type="text" placeholder="Votre numéro de téléphone">
+                </div>
+                <div class="droite">
+                    <div class="groupe">
+                        <label for="">Message</label>
+                        <textarea placeholder="Ecrivez votre messages..."></textarea>
+                    </div>
+                </div>
             </div>  
         </div>
         <div class="pied-formulaire" align="center">
@@ -277,6 +271,20 @@ window.addEventListener("load", async () => {
  // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
   document.querySelector('.footer').innerHTML += `
   <section class="footer">
+
+    </form>`;
+  }
+  if (requested_page == '#contact') {
+    displayContactPage();
+  } else if (requested_page == '#films') {
+    displayMoviesPage();
+  } else {
+    displayLandingPage();
+  }
+  // -------------------Footer------------------------------
+  // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
+  document.querySelector('.footer').innerHTML = `
+  
       <div class="reseau">
           <i class="fa-brands fa-instagram"></i>
           <i class="fa-brands fa-facebook"></i>
@@ -285,5 +293,5 @@ window.addEventListener("load", async () => {
       </div>
       <div id="site-by">
       </div>
-  </section>`;
+ `;
 });
