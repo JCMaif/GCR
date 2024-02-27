@@ -71,7 +71,7 @@ a {
 }
 
 .header .menu-icon .navicon {
-  background: #333;
+  background: #ffffff;
   display: block;
   height: 2px;
   position: relative;
@@ -81,7 +81,7 @@ a {
 
 .header .menu-icon .navicon:before,
 .header .menu-icon .navicon:after {
-  background: #333;
+  background: #ffffff;
   content: '';
   display: block;
   height: 100%;
@@ -144,10 +144,10 @@ a {
 /*#######Bannière######## */
 .banniere {
   width: 100%;
-  height: 500px;
+  height: 550px;
   background: url('../img/image1.jpg');
   background-size: cover;
-  background-position-y: -520px;
+  background-position-y: -570px;
 }
 /*#######Contenue de la page ######## */
 
