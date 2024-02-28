@@ -1,3 +1,6 @@
+import displayContactPage from "./contactPage.js";
+import displayLandingPage from "./landingPage.js";
+
 /**
  * Fonction principale appelée au chargement de la page
  */
@@ -32,7 +35,7 @@ window.addEventListener("load", async () => {
    * Fonction pour construire l'URL des prochaines sorties de films
    */
   const upcomingMoviesUrl = (apiKey) => {
-    return `${baseUrl}/movie/upcoming?api_key=${apiKey}&language=${language}&page=${page}`;
+    return `${baseUrl}/discover/movie?api_key=${apiKey}&language=${language}&page=${page}&primary_release_date.gte=2024-02-27&sort_by=primary_release_date.asc`;
   };
   // Récupération de apiKey
   const apiKey = await fetchApiKey();
@@ -46,23 +49,17 @@ window.addEventListener("load", async () => {
    * Listen for click event on the landing page button
    */
   landingPageBtn.addEventListener("click", () => {
-    displayLandingPage();
-  }); 
-  moviesPageBtn.addEventListener("click",() => {
+    displayLandingPage(applicationSection);
+  });
+  moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
   });
   contactPageBtn.addEventListener("click", () => {
-    displayContactPage();
+    displayContactPage(applicationSection);
   })
-  
-  //----------------------Landing Page ---------------------
-  const displayLandingPage = async () => {
-    console.log('landing');
 
-    applicationSection.id = "landing";
-  }
+ 
 
-displayLandingPage();
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
     /**
@@ -99,7 +96,7 @@ displayLandingPage();
     const renderFilmCards = films => {
       //const applicationSection = document.querySelector('.application');
       applicationSection.id = "movies";
-      applicationSection.classList.add('movies');
+      applicationSection.classList.add('film-grid');
       applicationSection.innerHTML = '';
       films.forEach(film => {
         const filmCard = createFilmCard(film);
@@ -109,8 +106,6 @@ displayLandingPage();
         applicationSection.appendChild(filmCard);
       });
     };
-    //----------------Landing Page----------------
-    
 
     /**
      * Recheche des films
@@ -158,6 +153,7 @@ displayLandingPage();
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des détails du film");
       }
+      console.log(await response.json());
       return await response.json();
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du film :", error);
@@ -193,47 +189,14 @@ displayLandingPage();
     applicationSection.appendChild(filmDetailsContainer);
   };
   // -------------------Contact ---------------------
-  const displayContactPage = () => {
-
-    applicationSection.id = "contact";
-    applicationSection.innerHTML = `
-    <form action="">
-        <div class="formulaire">
-            <h1>Contactez-nous</h1>
-            <div class="separation"></div>
-            <div class="corps-formulaire">
-                <div class="gauche">
-                    <div class="groupe">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="Votre prénom">
-                    </div>
-                    <div class="groupe">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="Votre addresse e-mail">
-                    <div class="groupe">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <input type="text" placeholder="Votre numéro de téléphone">
-                </div>
-                <div class="droite">
-                    <div class="groupe">
-                        <label for="">Message</label>
-                        <textarea placeholder="Ecrivez votre messages..."></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="pied-formulaire" align="center">
-                <button>Envoyer le message</button>
-            </div>
-        </div>
-    </form>`;
-  }
-  if (requested_page == '#contact') {
-    displayContactPage();
-  } else if (requested_page == '#films') {
-    displayMoviesPage();
-  } else {
-    displayLandingPage();
-  }
+ // Check the root and keep it when reload
+ if (requested_page == '#contact') {
+  displayContactPage(applicationSection);
+} else if (requested_page == '#films') {
+  displayMoviesPage();
+} else {
+  displayLandingPage(applicationSection);
+}
   // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
   document.querySelector('.footer').innerHTML = `
@@ -248,3 +211,4 @@ displayLandingPage();
       </div>
  `;
 });
+
