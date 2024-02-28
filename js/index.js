@@ -37,9 +37,12 @@ window.addEventListener("load", async () => {
   const upcomingMoviesUrl = (apiKey) => {
     return `${baseUrl}/discover/movie?api_key=${apiKey}&language=${language}&page=${page}&primary_release_date.gte=2024-02-27&sort_by=primary_release_date.asc`;
   };
+
   // Récupération de apiKey
   const apiKey = await fetchApiKey();
   if (!apiKey) return;
+
+
 
   // ---------------------Listeners Nav----------------------
   const landingPageBtn = document.querySelector('.landing');
@@ -50,6 +53,7 @@ window.addEventListener("load", async () => {
    */
   landingPageBtn.addEventListener("click", () => {
     displayLandingPage(applicationSection);
+
   });
   moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
@@ -57,8 +61,6 @@ window.addEventListener("load", async () => {
   contactPageBtn.addEventListener("click", () => {
     displayContactPage(applicationSection);
   })
-
- 
 
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
@@ -85,7 +87,6 @@ window.addEventListener("load", async () => {
     <p class="release-date">Date de sortie : ${formattedReleaseDate}</p>
   </div>
 `;
-
       filmCard.innerHTML = filmCardContent;
       return filmCard;
     };
@@ -106,7 +107,7 @@ window.addEventListener("load", async () => {
         applicationSection.appendChild(filmCard);
       });
     };
-
+    //----------------
     /**
      * Recheche des films
      */
@@ -126,7 +127,6 @@ window.addEventListener("load", async () => {
       console.error("Erreur :", error);
     }
   }
-
 
   /**
    * Fonction pour naviguer vers la page de détails du film
@@ -160,8 +160,8 @@ window.addEventListener("load", async () => {
     }
   };
   /**
-   * Fonction pour afficher les détails d'un film
-   */
+  * Fonction pour afficher les détails d'un film
+  */
   const renderFilmDetails = (filmDetails) => {
     const { title, poster_path, release_date, overview, runtime, genres } = filmDetails;
 
@@ -187,7 +187,7 @@ window.addEventListener("load", async () => {
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
- 
+
  // Check the root and keep it when reload
  if (requested_page == '#contact') {
   displayContactPage(applicationSection);
@@ -196,6 +196,7 @@ window.addEventListener("load", async () => {
 } else {
   displayLandingPage(applicationSection);
 }
+
   // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
   document.querySelector('.footer').innerHTML = `
@@ -209,5 +210,3 @@ window.addEventListener("load", async () => {
       <div id="site-by">
       </div>
  `;
-});
-
