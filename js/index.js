@@ -107,25 +107,33 @@ displayLandingPage();
         applicationSection.appendChild(filmCard);
       });
     };
+<<<<<<< Updated upstream
 
+=======
+    //----------------Landing Page----------------
+    
+>>>>>>> Stashed changes
     /**
      * Recheche des films
      */
     const apiUrl = upcomingMoviesUrl(apiKey);
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      if (response.ok) {
-        const films = data.results;
-        const sortedFilms = sortFilmsByReleaseDate(films);
-        renderFilmCards(sortedFilms);
-      } else {
-        console.error("Erreur lors de la récupération des données :", data.status_message);
+    const getMovies = async (apiUrl){
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+  
+        if (response.ok) {
+          const films = data.results;
+          const sortedFilms = sortFilmsByReleaseDate(films);
+          renderFilmCards(sortedFilms);
+        } else {
+          console.error("Erreur lors de la récupération des données :", data.status_message);
+        }
+      } catch (error) {
+        console.error("Erreur :", error);
       }
-    } catch (error) {
-      console.error("Erreur :", error);
     }
+    
   }
 
 
