@@ -34,7 +34,6 @@ a {
   display: block;
   padding: 20px 20px;
   background: url('../img/image2.avif')
-  text-decoration: none;
 }
 
 .header li a:hover,
