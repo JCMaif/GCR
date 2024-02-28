@@ -264,16 +264,7 @@ window.addEventListener("load", async () => {
         errorEmail.style.color = 'red';
     }
  })
-
-
- // -------------------Footer------------------------------
-
- // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
-  document.querySelector('.footer').innerHTML += `
-  <section class="footer">
-
-    </form>`;
-  }
+  
   if (requested_page == '#contact') {
     displayContactPage();
   } else if (requested_page == '#films') {
@@ -292,6 +283,5 @@ window.addEventListener("load", async () => {
           <i class="fa-brands fa-youtube"></i>
       </div>
       <div id="site-by">
-      </div>
- `;
+      </div>`;
 });
