@@ -1,3 +1,6 @@
+import displayContactPage from "./contactPage.js";
+import displayLandingPage from "./landingPage.js";
+
 /**
  * Fonction principale appelée au chargement de la page
  */
@@ -32,7 +35,7 @@ window.addEventListener("load", async () => {
    * Fonction pour construire l'URL des prochaines sorties de films
    */
   const upcomingMoviesUrl = (apiKey) => {
-    return `${baseUrl}/movie/upcoming?api_key=${apiKey}&language=${language}&page=${page}`;
+    return `${baseUrl}/discover/movie?api_key=${apiKey}&language=${language}&page=${page}&primary_release_date.gte=2024-02-27&sort_by=primary_release_date.asc`;
   };
 
   // Récupération de apiKey
@@ -49,21 +52,15 @@ window.addEventListener("load", async () => {
    * Listen for click event on the landing page button
    */
   landingPageBtn.addEventListener("click", () => {
-    displayLandingPage();
+    displayLandingPage(applicationSection);
+
   });
   moviesPageBtn.addEventListener("click", () => {
     displayMoviesPage();
   });
   contactPageBtn.addEventListener("click", () => {
-    displayContactPage();
+    displayContactPage(applicationSection);
   })
-
-  //----------------------Landing Page ---------------------
-  const displayLandingPage = async () => {
-    console.log('landing');
-
-    applicationSection.id = "landing";
-  }
 
   //---------------------Tous les films----------------------
   const displayMoviesPage = async () => {
@@ -100,7 +97,7 @@ window.addEventListener("load", async () => {
     const renderFilmCards = films => {
       //const applicationSection = document.querySelector('.application');
       applicationSection.id = "movies";
-      applicationSection.classList.add('movies');
+      applicationSection.classList.add('film-grid');
       applicationSection.innerHTML = '';
       films.forEach(film => {
         const filmCard = createFilmCard(film);
@@ -190,97 +187,16 @@ window.addEventListener("load", async () => {
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
-// -------------------Contact ---------------------
-  const displayContactPage = () => {
-    applicationSection.id = "contact";
-    applicationSection.innerHTML = `
-    <form action="">
-        <div class="formulaire">
-            <h1>Contactez-nous</h1>
-            <div class="separation"></div>
-            <div class="corps-formulaire">
-                <div class="gauche">
-                    <div class="groupe">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="Votre prénom">
-                    </div>
-                    <div class="groupe">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="Votre addresse e-mail">
-                    <div class="groupe">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <input type="text" placeholder="Votre numéro de téléphone">
-                </div>
-                <div class="droite">
-                    <div class="groupe">
-                        <label for="">Message</label>
-                        <textarea placeholder="Ecrivez votre messages..."></textarea>
-                    </div>
-                </div>
-            </div>  
-        </div>
-        <div class="pied-formulaire" align="center">
-        <button type="submit">Envoyer le message</button>
-        </div>
-    </div>
- </form>`;
- }
 
- if(requested_page == '#contact'){
-   displayContactPage();
- }else if(requested_page == '#films') {
-   displayMoviesPage();
- } else {
-   displayLandingPage();
- }
+ // Check the root and keep it when reload
+ if (requested_page == '#contact') {
+  displayContactPage(applicationSection);
+} else if (requested_page == '#films') {
+  displayMoviesPage();
+} else {
+  displayLandingPage(applicationSection);
+}
 
- // je récupère mon élément Formulaire par son ID.
- let formulaire = document.getElementById('formulaire');
- // j'ajoute une écouteur d'evenement à la soumission du formulaire.
- formulaire.addEventListener('submit', (e)=> {
-     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target))
-    //j'autorise les lettres + (-) + (espace)
-    let myRegex = /^[a-zA-Z-\s]$/;
-    console.log(data.username)
-    if (!data.username) {
-        let errorUser = document.getElementById('error_user');
-        errorUser.innerHTML = "Veuillez saisir votre prénom";
-        errorUser.style.color = 'red';
-    }
-    else if (myRegex.test(data.username) == false) {
-        let errorUser = document.getElementById('error_user');
-        errorUser.innerHTML = "Veuilez saisir un prénom valide";
-        errorUser.style.color = 'red';
-    }
- })
- formulaire.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target))
-    console.log(data.email)
-    if (!data.email) {
-        let errorEmail = document.getElementById('error_email')
-        errorEmail.innerHTML = "Veuillez saisir votre email";
-        errorEmail.style.color = 'red';
-    }
- })
-
-
- // -------------------Footer------------------------------
-
- // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
-  document.querySelector('.footer').innerHTML += `
-  <section class="footer">
-
-    </form>`;
-  }
-  if (requested_page == '#contact') {
-    displayContactPage();
-  } else if (requested_page == '#films') {
-    displayMoviesPage();
-  } else {
-    displayLandingPage();
-  }
   // -------------------Footer------------------------------
   // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
   document.querySelector('.footer').innerHTML = `
@@ -294,4 +210,3 @@ window.addEventListener("load", async () => {
       <div id="site-by">
       </div>
  `;
-});
