@@ -12,6 +12,3 @@ export async function getMovies() {
 export async function findMovie(filmId) {
 
 };
-
-
-

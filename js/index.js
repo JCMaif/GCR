@@ -153,7 +153,6 @@ window.addEventListener("load", async () => {
       if (!response.ok) {
         throw new Error("Erreur lors de la récupération des détails du film");
       }
-      console.log(await response.json());
       return await response.json();
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du film :", error);
@@ -188,7 +187,7 @@ window.addEventListener("load", async () => {
     applicationSection.innerHTML = '';
     applicationSection.appendChild(filmDetailsContainer);
   };
-  // -------------------Contact ---------------------
+ 
  // Check the root and keep it when reload
  if (requested_page == '#contact') {
   displayContactPage(applicationSection);
