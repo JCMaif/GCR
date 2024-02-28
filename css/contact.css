@@ -7,6 +7,7 @@ form{padding: 30px;
 .formulaire{
     width: 80%;
     background-color: rgb(156, 156, 156);
+    filter: drop-shadow(20px 7px 10px #202020);
     padding: 30px;
     border-radius: 20px;
     display: flex;
