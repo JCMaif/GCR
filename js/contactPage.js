@@ -1,7 +1,6 @@
 export default function displayContactPage(applicationSection) {
-
-    applicationSection.id = "contact";
-    applicationSection.innerHTML = `
+  applicationSection.id = "contact";
+  applicationSection.innerHTML = `
     <form id="formulaire">
         <div class="formulaire">
             <h1>Contactez-nous</h1>
@@ -31,15 +30,9 @@ export default function displayContactPage(applicationSection) {
                     </div>  
                 </div>
                 <div class="pied-formulaire" align="center">
-                <button type="submit" class="btn btn-light showPopup" value="Reset form">Envoyer le message</button>
-                </div>
-                <div id="popup">
-                    <div id="popupContent">
-                        <span id="closePopup"></i></span>
-                        <p id="popupMessage">Votre message est bien transmis! L'équipe GCR reviendra vers vous dans les plus brefs délais.</p>
-                    </div>
+                <button type="submit">Envoyer le message</button>
                 </div>
             </div>
         </div>
     </form>`;
-  }
+}

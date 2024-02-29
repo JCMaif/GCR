@@ -15,8 +15,8 @@ a {
 
 /*#######Header######## */
 .header {
-  background: url('../img/image2.avif');
-  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+  background: url("../img/image2.avif");
+  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
   z-index: 3;
@@ -27,18 +27,18 @@ a {
   padding: 0;
   list-style: none;
   overflow: hidden;
-  background: url('../img/image2.avif')
+  background: url("../img/image2.avif");
 }
 
 .header li a {
   display: block;
   padding: 20px 20px;
-  background: url('../img/image2.avif')
+  background: url("../img/image2.avif");
 }
 
 .header li a:hover,
 .header .menu-btn:hover {
-  background: url('../img/image2.avif')
+  background: url("../img/image2.avif");
 }
 
 .header .logo {
@@ -55,7 +55,7 @@ a {
 .header .menu {
   clear: both;
   max-height: 0;
-  transition: max-height .2s ease-out;
+  transition: max-height 0.2s ease-out;
 }
 
 /* menu icon */
@@ -74,18 +74,18 @@ a {
   display: block;
   height: 2px;
   position: relative;
-  transition: background .2s ease-out;
+  transition: background 0.2s ease-out;
   width: 18px;
 }
 
 .header .menu-icon .navicon:before,
 .header .menu-icon .navicon:after {
   background: #ffffff;
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   position: absolute;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
   width: 100%;
 }
 
@@ -144,23 +144,22 @@ a {
 .banniere {
   width: 100%;
   height: 550px;
-  background: url('../img/image1.jpg');
+  background: url("../img/image1.jpg");
   background-size: cover;
   background-position-y: -570px;
 }
 /*#######Contenue de la page ######## */
 
-
 /*#######Barre de Recherche######## */
 
-.barreRecherche{
+.barreRecherche {
   display: flex;
   justify-content: center;
 }
 
 /* ------- Footer ------- */
 .footer {
-  background: url('../img/image2.avif')
+  background: url("../img/image2.avif");
 }
 
 .reseau {
@@ -170,7 +169,6 @@ a {
   padding: 35px;
   filter: drop-shadow(10px 4px 5px #202020);
 }
-
 
 .film-grid {
   display: flex;
@@ -182,9 +180,13 @@ a {
 
 .film-card {
   width: calc(50% - 20px);
-  border: 1px solid #ddd;
+  filter: drop-shadow(20px 7px 10px #202020);
   border-radius: 5px;
   overflow: hidden;
+}
+
+.film-info {
+  background-color: #ffffff;
 }
 
 .film-card a {
@@ -197,7 +199,8 @@ a {
   height: auto;
 }
 
-.film-card h2, .film-card p {
+.film-card h2,
+.film-card p {
   padding: 0 15px;
 }
 
@@ -257,22 +260,22 @@ a {
 
 @media (min-width: 600px) {
   .film-card {
-      width: calc(33.333% - 20px);
+    width: calc(33.333% - 20px);
   }
 
   .film-details img {
-      max-height: 400px; /* limite la hauteur de l'image pour éviter qu'elle soit trop grande */
-      object-fit: cover; /* assure que l'image couvre la zone définie sans perdre son ratio d'aspect */
-      margin-right: 20px; /* ajoute un peu d'espace entre l'image et le texte à côté */
+    max-height: 400px; /* limite la hauteur de l'image pour éviter qu'elle soit trop grande */
+    object-fit: cover; /* assure que l'image couvre la zone définie sans perdre son ratio d'aspect */
+    margin-right: 20px; /* ajoute un peu d'espace entre l'image et le texte à côté */
   }
 
   .film-details > * {
-      flex: 1; /* donne une flexibilité égale aux éléments enfants direct de .film-details, permettant un arrangement plus équilibré */
+    flex: 1; /* donne une flexibilité égale aux éléments enfants direct de .film-details, permettant un arrangement plus équilibré */
   }
 }
 
 @media (min-width: 900px) {
   .film-card {
-      width: calc(25% - 20px);
+    width: calc(25% - 20px);
   }
 }
