@@ -11,7 +11,26 @@ const options = {
 const baseUrl = "https://api.themoviedb.org/3"; // URL de base de l'API TMDB
 const language = "fr-FR";
 const page = 1;
-const primary_release_date = "primary_release_date.gte=2024-02-27";
+const dateFormatter = new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: "2-digit",
+    day: "2-digit"
+});
+
+/**
+ * 
+ * @param {Date} date Date object to format in string 'yyyy/mm/dd'
+ * @returns {string}
+ */
+function formatDateToString(date) {
+    return dateFormatter
+      .format(date)
+      .split('/')
+      .reverse()
+      .join('/')
+  }
+
+const primary_release_date = "primary_release_date.gte=2024-02-29";
 const sort = "sort_by=primary_release_date.asc";
 
 /**

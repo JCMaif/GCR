@@ -18,14 +18,15 @@ export default function displayMoviesPage(applicationSection, films){
     </div>
   `;
         filmCard.innerHTML = filmCardContent;
-      /*   const cardId = filmCard.dataset.filmId;
-        console.log(cardId); */
         return filmCard;
     };
 
     function createMoviesPage(applicationSection, films) {
         applicationSection.id = "movies";
-        applicationSection.classList.add('film-grid');
+        applicationSection.classList.add("film-grid");
+        const divFilms = document.createElement( 'div' );
+        divFilms.className = "movies film-grid" ;
+        
         applicationSection.innerHTML = '';
         films.forEach(film => {
             const filmCard = createCard(film);
