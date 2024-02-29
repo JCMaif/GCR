@@ -4,6 +4,10 @@ Ce README décrit le fonctionnement du site Web "GRC Cinéma" du point de vue du
 
 ## Fonctionnement du Site
 
+### Lancement du projet
+
+- **Live Preview** pour executer le site web veillez lancer l'extension `Live Preview` avec le boutton `Go Live` en ayant ouvert préalablement le dossier du projet dans VScode et dans index.html.
+
 ### Fichiers Principaux
 
 - **index.html**: Le fichier HTML principal qui définit la structure de la page.
