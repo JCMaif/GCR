@@ -6,7 +6,7 @@ Ce README décrit le fonctionnement du site Web "GRC Cinéma" du point de vue du
 
 ### Lancement du projet
 
-- **Live Preview** pour executer le site web veillez lancer l'extension `Live Preview` avec le boutton `Go Live` en ayant ouvert préalablement le dossier du projet dans VScode et dans index.html.
+- **Live Preview** pour executer le site web veillez lancer l'extension `Live Preview` avec le boutton `Go Live` en ayant ouvert préalablement le dossier du projet dans VScode et en ciblant index.html.
 
 ### Fichiers Principaux
 
@@ -40,7 +40,7 @@ Le site comprend trois pages principales :
 
 Avant de commencer le développement, nous avons créé un wireframe avec Figma pour planifier la structure et le design du site. Voici quelques images du wireframe :
 
-![](./ressources/01.webp) ![](./ressources/02.webp) ![](./ressources/03.webp)
+![](./ressources/01.PNG) ![](./ressources/02.PNG) ![](./ressources/03.PNG)
 
 ### Collaboration avec GitHub
 
