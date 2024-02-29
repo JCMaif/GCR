@@ -45,18 +45,48 @@ window.addEventListener("load", async () => {
       displayLandingPage(applicationSection);
     }
 
-    // -------------------Footer------------------------------
-    // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
-    document.querySelector('.footer').innerHTML = `
+ // je récupère mon élément Formulaire par son ID.
+ let formulaire = document.getElementById('formulaire');
+ // j'ajoute une écouteur d'evenement à la soumission du formulaire.
+ formulaire.addEventListener('submit', (e)=> {
+     e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target))
+    //j'autorise les lettres + (-) + (espace)
+    let myRegex = /^[a-zA-Z-\s]$/;
+    console.log(data.username)
+    if (!data.username) {
+        let errorUser = document.getElementById('error_user');
+        errorUser.innerHTML = "Veuillez saisir votre prénom";
+        errorUser.style.color = 'red';
+    }
+    else if (myRegex.test(data.username) == false) {
+        let errorUser = document.getElementById('error_user');
+        errorUser.innerHTML = "Veuilez saisir un prénom valide";
+        errorUser.style.color = 'red';
+    }
+ })
+ formulaire.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target))
+    console.log(data.email)
+    if (!data.email) {
+        let errorEmail = document.getElementById('error_email')
+        errorEmail.innerHTML = "Veuillez saisir votre email";
+        errorEmail.style.color = 'red';
+    }
+ })
+
+// -------------------Footer------------------------------
+  // évènement ajouté au chargement de la page avec ajout direct d'html dans le DOM (footer)
+  document.querySelector('.footer').innerHTML = `
   
       <div class="reseau">
-      <p>Volleywood Squad</p>
           <i class="fa-brands fa-instagram"></i>
           <i class="fa-brands fa-facebook"></i>
           <i class="fa-brands fa-twitter"></i>
           <i class="fa-brands fa-youtube"></i>
       </div>
-      <div id="site-by">
+      <div id="site-by">>Volleywood Squad
       </div>
  `;
   }
