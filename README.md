@@ -64,3 +64,5 @@ Pour thibault:
 
   
 Malgré ces défis, nous avons réussi à surmonter les obstacles et à livrer un site fonctionnel et esthétique.
+
+AUDEBERT Jean-Charles et MESMIN Thibault
