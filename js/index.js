@@ -13,11 +13,11 @@ window.addEventListener("load", async () => {
   //-------------Fetch API----------------------
  //console.log('upcoming films : ', await getMovies());
  //console.log('findMovie : ' , await findMovie(969492));
- console.log('recommandations : ', await recommandation(969492));
+ //console.log('recommandations : ', await recommandation(969492));
  //console.log('trending : ' , await trendingWeeklyMovies());
  const movies = await getMovies();
  const moviesList = movies.results;
- console.log(moviesList);
+ //console.log(moviesList);
 
   // ---------------------Listeners Nav----------------------
   const landingPageBtn = document.querySelector('.landing');
@@ -50,6 +50,7 @@ window.addEventListener("load", async () => {
     document.querySelector('.footer').innerHTML = `
   
       <div class="reseau">
+      <p>Volleywood Squad</p>
           <i class="fa-brands fa-instagram"></i>
           <i class="fa-brands fa-facebook"></i>
           <i class="fa-brands fa-twitter"></i>

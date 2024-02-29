@@ -163,7 +163,9 @@ a {
 .footer {
   background: url('../img/image2.avif')
 }
-
+.footer p {
+  font-size: medium;
+}
 .reseau {
   background-position: left;
   color: #fff;
