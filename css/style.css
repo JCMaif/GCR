@@ -151,43 +151,20 @@ a {
 }
 /*#######Contenue de la page ######## */
 
-
-/*#######Barre de Recherche######## */
-
-.barreRecherche{
-  display: flex;
-  justify-content: center;
-}
-
-/* ------- Footer ------- */
-.footer {
-  background: url('../img/image2.avif')
-}
-.footer p {
-  font-size: medium;
-}
-.reseau {
-  background-position: left;
-  color: #fff;
-  font-size: 3em;
-  padding: 35px;
-  filter: drop-shadow(10px 4px 5px #202020);
-}
-
-
 .film-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .film-card {
-  width: calc(50% - 20px);
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
+  min-width: calc(15% - 20px);
+  border: 3px solid #000000;
+  border-radius: 10px;
+  /* overflow: hidden; */
+  filter: drop-shadow(10px 4px 10px #202020);
 }
 
 .film-card a {
@@ -198,6 +175,7 @@ a {
 .film-card img {
   width: 100%;
   height: auto;
+  border-radius: 10px;
 }
 
 .film-card h2, .film-card p {
@@ -205,23 +183,29 @@ a {
 }
 
 .film-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   padding: 20px;
 }
 
 .film-details img {
-  width: 100%;
+  object-fit: contain;
   height: auto;
 }
 
 .film-recommendations {
   margin-top: 20px;
+  width: 100vw;
 }
 
 .scroll-container {
   display: flex;
-  overflow-x: auto;
+  overflow-x: scroll;
   gap: 20px;
   padding: 10px 0;
+  flex-direction: row;
+  /* flex-wrap: nowrap; */
 }
 
 .recommendation-card {
@@ -260,22 +244,59 @@ a {
 
 @media (min-width: 600px) {
   .film-card {
-      width: calc(33.333% - 20px);
+      /* width: calc(33.333% - 20px); */
   }
 
   .film-details img {
       max-height: 400px; /* limite la hauteur de l'image pour éviter qu'elle soit trop grande */
-      object-fit: cover; /* assure que l'image couvre la zone définie sans perdre son ratio d'aspect */
       margin-right: 20px; /* ajoute un peu d'espace entre l'image et le texte à côté */
   }
 
   .film-details > * {
       flex: 1; /* donne une flexibilité égale aux éléments enfants direct de .film-details, permettant un arrangement plus équilibré */
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
   }
 }
 
 @media (min-width: 900px) {
   .film-card {
-      width: calc(25% - 20px);
+    width: calc(25% - 20px);
   }
+}
+
+/*#######Barre de Recherche######## */
+
+.barreRecherche{
+  display: flex;
+  justify-content: center;
+}
+
+/* ------- Footer ------- */
+.footer {
+  background: url('../img/image2.avif');
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.footer p {
+  font-size: medium;
+}
+.reseau {
+  background-position: left;
+  color: #fff;
+  font-size: 3em;
+  padding: 35px;
+  filter: drop-shadow(10px 4px 5px #202020);
+}
+
+#site-by{
+  color: #ffffff;
+  font-size: x-large;
+  margin-right: 50px;
+  filter: drop-shadow(10px 10px 3px #202020);
 }

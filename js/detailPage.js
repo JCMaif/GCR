@@ -11,17 +11,21 @@ export default async function displayDetailPage(applicationSection, filmId) {
     // const { title, poster_path, release_date, overview, runtime, genres } = filmDetails;
 
     const releaseDate = new Date(release_date);
-    const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1}/${releaseDate.getFullYear()}`;
+    const formattedReleaseDate = `${releaseDate.getDate()}/${
+      releaseDate.getMonth() + 1
+    }/${releaseDate.getFullYear()}`;
 
     const filmDetailsHTML = `
   <div class="film-details">
     <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" class="film-poster">
     <div class="film-info">
       <h2 class="film-title">${title}</h2>
-      <p class="release-date">Date de sortie : ${formattedReleaseDate}</p>
+      <p class="release-date"Date de sortie : ${formattedReleaseDate}</p>
       <p class="overview">${overview}</p>
       <p class="runtime">Durée : ${runtime} minutes</p>
-      <p class="genres">Genres : ${genres.map(genre => genre.name).join(', ')}</p>
+      <p class="genres">Genres : ${genres
+        .map((genre) => genre.name)
+        .join(", ")}</p>
     </div>
   </div>
   <section class="film-recommendations">
@@ -32,17 +36,17 @@ export default async function displayDetailPage(applicationSection, filmId) {
         </section>
 `;
 
-    const filmDetailsContainer = document.createElement('div');
+    const filmDetailsContainer = document.createElement("div");
     filmDetailsContainer.innerHTML = filmDetailsHTML;
     applicationSection.id = "filmDetail";
-    applicationSection.innerHTML = '';
+    applicationSection.innerHTML = "";
     applicationSection.appendChild(filmDetailsContainer);
   };
   const renderRecommendations = (recos) => {
-    const filmRecommendations = document.querySelector('.scroll-container');
+    const filmRecommendations = document.querySelector(".scroll-container");
     recos.forEach((reco) => {
-      const filmCard = document.createElement('div');
-      filmCard.classList.add('film-card');
+      const filmCard = document.createElement("div");
+      filmCard.classList.add("film-card");
       filmCard.innerHTML = `
               <img src="https://image.tmdb.org/t/p/w500/${reco.poster_path}" alt="${reco.title}">
               <h3>${reco.title}</h3>
@@ -52,5 +56,4 @@ export default async function displayDetailPage(applicationSection, filmId) {
   };
   renderFilmDetails(filmId);
   renderRecommendations(recosResult);
-
 }
