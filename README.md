@@ -1,29 +1,34 @@
-# Site Web The Promised Neverland
+# Site Web GCR Cinéma
 
-Ce README décrit le fonctionnement du site Web "The Promised Neverland" du point de vue du code, ainsi que l'organisation du projet.
+Ce README décrit le fonctionnement du site Web "GRC Cinéma" du point de vue du code, ainsi que l'organisation du projet.
 
 ## Fonctionnement du Site
 
 ### Fichiers Principaux
 
 - **index.html**: Le fichier HTML principal qui définit la structure de la page.
-- **script.js**: Le fichier JavaScript qui contrôle le comportement interactif du site.
+- **index.js**: Le fichier JavaScript qui contrôle le comportement interactif du site.
+- **api.js**: Ce fichier gère l'appels à l'APi pour récupérer les données stockées.
+- **contactPage.js**: Ce fichier contrôle les fonctionnalités et affichage dans la page "Contact" du site web.
+- **landingPage**: Ce fichier contrôle les fonctionnalités et affichage dans la page "Accueil" du site web.
+- **moviesPage**: Ce fichier contrôle les fonctionnalités et affichage dans la page "Films" du site web.
+- **detailsPage** Ce fichier contrôle la fonctionnalités et l'affichage des détails d'un film quand on clique dessus dans la page "Films"
 - **style.css**: Le fichier CSS qui gère le style et la mise en page du site.
+- **contact.css**: Le fichier contact.css définit le style et la mise en page de contact (formulaire).
 
 ### Pages du Site
 
-Le site comprend quatre pages principales :
+Le site comprend trois pages principales :
 
 1. **Accueil (Landing Page)**: Présente une introduction au manga "The Promised Neverland" avec un bouton pour découvrir plus.
-2. **Présentation**: Affiche des informations détaillées sur le manga, y compris des images et un résumé.
-3. **Episodes**: Une page qui affiche une galerie d'épisodes sous forme de slider.
+2. **Films**: Affiche tous les films disponibles prochainement au cinéma 
 4. **Contact**: Permet aux utilisateurs de soumettre un formulaire de contact.
 
 ### Fonctionnalités Principales
 
 - **Menu de Navigation**: Le menu de navigation permet de passer d'une page à l'autre de manière fluide.
-- **Slider d'Épisodes**: La page des épisodes comprend un slider interactif qui permet de naviguer entre les différentes images et descriptions des épisodes.
-- **Formulaire de Contact**: Sur la page de contact, les utilisateurs peuvent soumettre un formulaire pour contacter les administrateurs du site.
+- **Détails des films**: La page "Films" contient tous les films bientot disponible au cinéma et si on clique dessus cela affiche les détails de celui-ci.
+- **Formulaire de Contact**: Sur la page de contact, les utilisateurs peuvent soumettre un formulaire pour contacter les administrateurs du GCR.
 
 ## Organisation du Projet
 
@@ -31,26 +36,31 @@ Le site comprend quatre pages principales :
 
 Avant de commencer le développement, nous avons créé un wireframe avec Figma pour planifier la structure et le design du site. Voici quelques images du wireframe :
 
-![](./ressources/page_accueil.PNG) ![](./ressources/page_présentation_manga.PNG) ![](./ressources/page_episodes.PNG) ![](./ressources/page_contact.PNG)
+![](./ressources/01.webp) ![](./ressources/02.webp) ![](./ressources/03.webp)
 
 ### Collaboration avec GitHub
 
 Nous avons utilisé GitHub pour collaborer sur le projet à deux. Nous avons suivi les étapes suivantes :
 
 1. Création d'un dépôt GitHub pour le projet.
-2. Clonage du dépôt sur nos machines locales.
-3. Création de branches pour travailler sur des fonctionnalités spécifiques.
-4. Réalisation des modifications sur nos branches respectives.
-5. Soumission de pull requests pour fusionner nos modifications dans la branche principale.
-6. Révision et validation des pull requests avec l'autre collaborateur.
-7. Fusion des pull requests une fois validées.
+2. Création d'un kanban dans github projet. 
+3. Clonage du dépôt sur nos machines locales.
+4. Création de issues pour chaque fonctionnalités. 
+5. Création de branches automatiques depuis les issues pour travailler sur des fonctionnalités spécifiques.
+6. Réalisation des modifications sur nos branches respectives.
+7. Soumission de pull requests pour fusionner nos modifications dans la branche principale.
+8. Révision et validation des pull requests avec l'autre collaborateur.
+9. Fusion des pull requests une fois validées.
 
 ### Difficultés Rencontrées
 
 Nous avons rencontré quelques difficultés lors du développement du site, notamment :
 
-- **Gestion du Slider**: La mise en place du slider d'épisodes a nécessité une manipulation complexe du DOM et des événements.
 - **Menu Hamburger tout CSS**: La barre de navigation en html/css, récupérée d'un projet précédant, que nous avons eu du mal à adapter.
-- **Dynamisation en JS**: Nous avons d'abord réaliser le site en statique, la dynamisation en javascript a entraîné beaucoup de difficultés et la refonte de l'algorithme des fonctionnalités.
+- **API** Gerer la consommation d’une API et son appel
+  
+Pour thibault: 
+- Toute la partie JavaScript >>>>
 
+  
 Malgré ces défis, nous avons réussi à surmonter les obstacles et à livrer un site fonctionnel et esthétique.
