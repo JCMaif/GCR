@@ -194,6 +194,10 @@ a {
   height: auto;
 }
 
+.film-trending{
+  display: ruby;
+}
+
 .film-recommendations {
   margin-top: 20px;
   width: 100vw;
@@ -243,10 +247,6 @@ a {
 }
 
 @media (min-width: 600px) {
-  .film-card {
-      /* width: calc(33.333% - 20px); */
-  }
-
   .film-details img {
       max-height: 400px; /* limite la hauteur de l'image pour éviter qu'elle soit trop grande */
       margin-right: 20px; /* ajoute un peu d'espace entre l'image et le texte à côté */
