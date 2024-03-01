@@ -14,10 +14,10 @@ const dateFormatter = new Intl.DateTimeFormat('en', {
 
 function formatDateToString(date) {
     return dateFormatter
-      .format(date)
-      .split('/')
-      .reverse()
-      .join('-');
+        .format(date)
+        .split('/')
+        .reverse()
+        .join('-');
 }
 
 function checkIfResponseIsValid(response) {
@@ -66,3 +66,14 @@ export async function trendingWeeklyMovies() {
         .then(response => response.json())
         .catch(err => console.error(err));
 }
+
+export async function getGenre() {
+    return fetch(`${baseUrl}/genre/movie/list?language=fr`, options)
+        .then(response => response.json())
+        .catch(err => console.error(err));
+}
+
+// filtrer par genre :
+// recupérer la liste des genres
+// les afficher dans une liste datalist ou select
+// mettre à jour l'affichage

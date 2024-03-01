@@ -23,6 +23,7 @@ export default function displayMoviesPage(applicationSection, films){
 
     function createMoviesPage(applicationSection, films) {
         applicationSection.id = "movies";
+        
         applicationSection.classList.add("film-grid");
         const divFilms = document.createElement( 'div' );
         divFilms.className = "movies film-grid" ;
