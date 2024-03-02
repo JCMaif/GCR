@@ -24,14 +24,14 @@ Ce README décrit le fonctionnement du site Web "GRC Cinéma" du point de vue du
 
 Le site comprend trois pages principales :
 
-1. **Accueil (Landing Page)**: Présente une introduction au manga "The Promised Neverland" avec un bouton pour découvrir plus.
-2. **Films**: Affiche tous les films disponibles prochainement au cinéma 
+1. **Accueil (Landing Page)**: Présente les films tendance de la semaine
+2. **Films**: Affiche tous les films disponibles prochainement au cinéma. Des possibilités de filtrage sont ajoutées. 
 4. **Contact**: Permet aux utilisateurs de soumettre un formulaire de contact.
 
 ### Fonctionnalités Principales
 
 - **Menu de Navigation**: Le menu de navigation permet de passer d'une page à l'autre de manière fluide.
-- **Détails des films**: La page "Films" contient tous les films bientot disponible au cinéma et si on clique dessus cela affiche les détails de celui-ci.
+- **Détails des films**: Le clic sur un film depuis les films tendances, la page "films" ou les recommandations ouvre la page détaillant le film 
 - **Formulaire de Contact**: Sur la page de contact, les utilisateurs peuvent soumettre un formulaire pour contacter les administrateurs du GCR.
 
 ## Organisation du Projet
@@ -62,11 +62,25 @@ Nous avons rencontré quelques difficultés lors du développement du site, nota
 
 - **Menu Hamburger tout CSS**: La barre de navigation en html/css, récupérée d'un projet précédant, que nous avons eu du mal à adapter.
 - **API** Gerer la consommation d’une API et son appel
+- **Affichage des résultats**  Afficher correctement les données récupérées a été compliqué. L'organisation du code a été un enjeu majeur pour nous y retrouver et pouvoir réutiliser les fonctions déjà faites. Plusieurs grosses session de factorisation ont été réalisées pour améliorer la lecture du code.
   
 Pour thibault: 
 - Toute la partie JavaScript >>>>
 
   
 Malgré ces défis, nous avons réussi à surmonter les obstacles et à livrer un site fonctionnel et esthétique.
+
+### Qualité du site
+
+#### LightHouse : 
+On s'en tire bien :
+
+![](./ressources/GCR-lighthouse.png)
+
+
+#### W3 : 
+
+Pas d'erreur
+
 
 AUDEBERT Jean-Charles et MESMIN Thibault
