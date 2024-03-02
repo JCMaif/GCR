@@ -1,12 +1,14 @@
 import { findMovie, recommandation } from "./api.js";
-import { displayScrollMovies, updateUrl} from "./utils.js";
+import { displayScrollMovies, updateUrl } from "./utils.js";
 
 export default async function displayDetailPage(applicationSection, filmId) {
+  const searchZoneSection = document.querySelector(".searchZone");
+  searchZoneSection.innerHTML = '';
   const movie = await findMovie(filmId);
   const recos = await recommandation(filmId);
   const recosResult = recos.results;
   const { title, poster_path, release_date, overview, runtime, genres } = movie;
-console.log(typeof(genres));
+
   const renderFilmDetails = (movie) => {
     const releaseDate = new Date(release_date);
     const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1

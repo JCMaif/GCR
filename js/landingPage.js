@@ -5,7 +5,8 @@ import displayDetailPage from "./detailPage.js";
 export default async function displayLandingPage(applicationSection){
     const trending = await trendingWeeklyMovies();
     const trendingList = trending.results;
-
+    const searchZoneSection = document.querySelector(".searchZone");
+    searchZoneSection.innerHTML = '';
     applicationSection.id = "landing";
     applicationSection.innerHTML = `
         <h2 class="landing-title">Les films les plus appréciés</h2>

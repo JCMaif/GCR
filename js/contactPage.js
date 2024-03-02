@@ -1,7 +1,9 @@
 export default function displayContactPage(applicationSection) {
 
-    applicationSection.id = "contact";
-    applicationSection.innerHTML = `
+  const searchZoneSection = document.querySelector(".searchZone");
+  searchZoneSection.innerHTML = '';
+  applicationSection.id = "contact";
+  applicationSection.innerHTML = `
     <form id="formulaire">
         <div class="formulaire">
             <h1>Contactez-nous</h1>
@@ -42,7 +44,7 @@ export default function displayContactPage(applicationSection) {
             </div>
         </div>
     </form>`;
-  }
+}
 /* 
    // je récupère mon élément Formulaire par son ID.
    let formulaire = document.getElementById("formulaire");
