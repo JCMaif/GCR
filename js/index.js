@@ -28,6 +28,7 @@ window.addEventListener("load", async () => {
 
   // Ajout du footer
   addFooter();
+
 });
 
 /**

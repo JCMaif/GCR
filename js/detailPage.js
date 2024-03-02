@@ -6,7 +6,7 @@ export default async function displayDetailPage(applicationSection, filmId) {
   const recos = await recommandation(filmId);
   const recosResult = recos.results;
   const { title, poster_path, release_date, overview, runtime, genres } = movie;
-
+console.log(typeof(genres));
   const renderFilmDetails = (movie) => {
     const releaseDate = new Date(release_date);
     const formattedReleaseDate = `${releaseDate.getDate()}/${releaseDate.getMonth() + 1
