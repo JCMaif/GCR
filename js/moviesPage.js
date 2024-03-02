@@ -1,7 +1,7 @@
 import displayDetailPage from "./detailPage.js";
 import { getMovies } from "./api.js";
 
-export default function displayMoviesPage(applicationSection, films, totalPages, currentPage) {
+export default function displayMoviesPage(applicationSection, films, totalPages, currentPage, searchParams) {
     const parameterSection = document.createElement('section');
     parameterSection.classList.add('parameter-section');
 
@@ -110,9 +110,9 @@ export default function displayMoviesPage(applicationSection, films, totalPages,
         });
         nextButton.disabled = currentPage === totalPages;
 
-        paginationSection.appendChild(previousButton);
-        paginationSection.appendChild(pageNumberDisplay);
-        paginationSection.appendChild(nextButton);
+       // paginationSection.appendChild(previousButton);
+       // paginationSection.appendChild(pageNumberDisplay);
+       // paginationSection.appendChild(nextButton);
     }
 
 
