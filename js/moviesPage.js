@@ -1,5 +1,5 @@
 import displayDetailPage from "./detailPage.js";
-import { getMovies } from "./api.js";
+import { getMovies, getGenres } from "./api.js";
 
 export default function displayMoviesPage(applicationSection, films, totalPages, currentPage, searchParams) {
     const parameterSection = document.createElement('section');
@@ -20,6 +20,30 @@ export default function displayMoviesPage(applicationSection, films, totalPages,
 
     const submitButton = createButton('Search', handleSearch);
 
+     // Créer le sélecteur de genre
+     const genreSelect = document.createElement('select');
+     genreSelect.id = 'genre-select';
+     createGenreOptions(); // Appel de la fonction pour créer les options de genre
+
+      // Fonction pour créer les options de genre
+    async function createGenreOptions() {
+        try {
+            // Récupérer les genres depuis l'API
+            const genres = await getGenres();
+           // console.log(genres);
+            //console.log(genres.genres);
+            // Créer les options de genre
+            const options = genres.genres.map(genre => `<option value="${genre.id}">${genre.name}</option>`).join('');
+
+            // Ajouter les options au genreSelect
+            genreSelect.innerHTML = `
+                <option value="">Tous les genres</option>
+                ${options}
+            `;
+        } catch (error) {
+            console.error("Erreur lors de la récupération des genres :", error);
+        }
+    }
     function createInputLabel(textContent) {
         const label = document.createElement('label');
         label.textContent = textContent;
@@ -98,7 +122,7 @@ export default function displayMoviesPage(applicationSection, films, totalPages,
 
         // Affichage du numéro de page
         const pageNumberDisplay = document.createElement('span');
-        pageNumberDisplay.textContent = `Page ${currentPage} sur ${totalPages}`;
+        pageNumberDisplay.textContent = `Page ${currentPage} sur ${totalPages}`; // ajouter un if pour vérifier currentPage
 
         // Bouton "Suivant"
         const nextButton = createButton('Suivant', () => {
@@ -110,9 +134,9 @@ export default function displayMoviesPage(applicationSection, films, totalPages,
         });
         nextButton.disabled = currentPage === totalPages;
 
-       // paginationSection.appendChild(previousButton);
-       // paginationSection.appendChild(pageNumberDisplay);
-       // paginationSection.appendChild(nextButton);
+        //paginationSection.appendChild(previousButton);
+        //paginationSection.appendChild(pageNumberDisplay);
+        //paginationSection.appendChild(nextButton);
     }
 
 
@@ -124,6 +148,9 @@ export default function displayMoviesPage(applicationSection, films, totalPages,
             parameterSection.appendChild(includeAdultLabel);
             parameterSection.appendChild(primaryReleaseDateGteLabel);
             parameterSection.appendChild(primaryReleaseDateLteLabel);
+
+            // Ajouter le filtre par genre
+            parameterSection.appendChild(genreSelect);
 
             // Ajouter le bouton de soumission
             parameterSection.appendChild(submitButton);

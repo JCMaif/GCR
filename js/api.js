@@ -127,7 +127,7 @@ export async function trendingWeeklyMovies() {
  * Retrieves the list of movie genres, in french.
  * @returns {Promise<Object>} - A promise that resolves to the list of movie genres.
  */
-export async function getGenre() {
+export async function getGenres() {
     const url = `${baseUrl}/genre/movie/list?language=fr`;
     return fetchMovies(url);
 }
